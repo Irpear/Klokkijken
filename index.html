@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaPipe Handpose</title>
+    <link rel="stylesheet" href="./src/style.css">
+    <script defer type="module" src="./src/script.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="page-container">
+    <div class="side-text left">
+        <p>Start je camera en beantwoord de vragen door met één hand naar het juiste uur op de klok te wijzen!</p>
+        Wijs met je wijsvinger! daar is die voor :)
+    </div>
+
+    <div id="app">
+        <h1>Waar wijst de klok?</h1>
+        <div class="clockContainer">
+            <div class="clockFace">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="output_canvas"></canvas>
+                <img id="myimage" src="" alt="Wijzer"/>
+                <div class="number number-12">12</div>
+                <div class="number number-3">3</div>
+                <div class="number number-6">6</div>
+                <div class="number number-9">9</div>
+            </div>
+        </div>
+        <button id="webcamButton">Start Webcam</button>
+    </div>
+
+    <div class="side-text right">
+        <p id="resultsBox">Oefeningen goed: 0</p>
+        <p id="questionBox">Hier moet een vraag staan</p>
+    </div>
+</div>
+
+</body>
+
+
+</html>
