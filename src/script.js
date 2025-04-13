@@ -7,7 +7,7 @@ import {
     FilesetResolver,
     DrawingUtils
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18"
-import kNear from "/src/knear.js"
+import kNear from "./knear.js"
 
 /********************************************************************
  // VARIABELEN
