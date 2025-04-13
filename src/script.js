@@ -1,3 +1,7 @@
+/********************************************************************
+ // IMPORTS
+ ********************************************************************/
+
 import {
     HandLandmarker,
     FilesetResolver,
@@ -5,20 +9,21 @@ import {
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18";
 import kNear from "/src/knear.js";
 
+/********************************************************************
+ // VARIABELEN
+ ********************************************************************/
+
 const enableWebcamButton = document.getElementById("webcamButton");
-const logButton = document.getElementById("logButton");
 
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 
-const drawUtils = new DrawingUtils(canvasCtx);
 let handLandmarker = undefined;
 let webcamRunning = false;
 let results = undefined;
 
 let rightAnswers = 0;
-
 let correctFrames = 0;
 
 const clockFace = document.querySelector('.clockFace');
@@ -32,6 +37,10 @@ let image = document.querySelector("#myimage");
 let data = null;
 let questions = null;
 let currentQuestion = null;
+
+/********************************************************************
+ // FETCH KNNDATA EN VRAGEN
+ ********************************************************************/
 
 fetch('./public/handData.json')
     .then(response => response.json())
@@ -52,12 +61,19 @@ fetch('./public/vragen.json')
     .catch(error => console.error("Fout bij laden van JSON:", error));
 
 
+/********************************************************************
+ // VRAAG VERVANGEN
+ ********************************************************************/
 function getRandomQuestion() {
     const index = Math.floor(Math.random() * questions.length);
     currentQuestion = questions[index];
     document.getElementById("questionBox").textContent = currentQuestion.question;
 }
 
+
+/********************************************************************
+ // CONSTANTE CHECK OF HET ANTWOORD GOED IS
+ ********************************************************************/
 function onUserPointsTo(hour) {
     if (coolingDown) return;
 
@@ -90,6 +106,9 @@ function onUserPointsTo(hour) {
     }
 }
 
+/********************************************************************
+ // KNN TRAINEN (IN KNNDATA FETCH)
+ ********************************************************************/
 function loadKNNModel(data) {
     data.pointUp.forEach(handData => machine.learn(handData, 'pointUp'));
     data.pointDown.forEach(handData => machine.learn(handData, 'pointDown'));
@@ -174,14 +193,6 @@ async function predictWebcam() {
     }
 }
 
-/********************************************************************
- // LOG HAND COORDINATES IN DE CONSOLE
- ********************************************************************/
-function logAllHands() {
-    for (let hand of results.landmarks) {
-        console.log(hand[4]);
-    }
-}
 
 /********************************************************************
  // START DE APP
